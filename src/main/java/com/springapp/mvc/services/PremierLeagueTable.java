@@ -1,42 +1,65 @@
 package com.springapp.mvc.services;
 
+
 import com.springapp.mvc.dataStructures.TableEntry;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import java.io.IOException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+
+import javax.annotation.PostConstruct;
 import java.util.HashMap;
 
-/**
- * Stats taken from PremierLeague.com
- */
 public class PremierLeagueTable {
-    private HashMap<Integer, TableEntry> table = new HashMap<Integer, TableEntry>();
-    private final String urlOfTable = "http://www.premierleague.com/en-gb/matchday/league-table.html";
 
-    public PremierLeagueTable(){
-        getData();
+    private HashMap<Integer, TableEntry> table = new HashMap<Integer, TableEntry>();
+
+    @Autowired
+    private BBCstats bbCstats;
+    @Autowired
+    private EspnStats espnStats;
+    @Autowired
+    private PremierLeagueStats premierLeagueStats;
+
+    @PostConstruct
+    public void init(){
+        generateTable();
     }
 
-    private boolean getData() {
-        try {
-            Document doc = Jsoup.connect(urlOfTable).get();
-            Elements teamNames = doc.getElementsByAttributeValue("template", ".leagueTable-Club");
-            Elements points = doc.getElementsByAttributeValue("template", ".leagueTable-Pts");
-            int count =0;
-            for (Element name : teamNames ){
-                int numPoints = Integer.parseInt(points.get(count).text());
-                TableEntry tableEntry = new TableEntry(name.text(),numPoints);
-                table.put(count+1, tableEntry);
-                count++;
-            }
-        } catch (IOException e) {
+    public boolean generateTable(){
+
+        if(bbCstats.getIsResourceAvailable()){
+            table = bbCstats.getBbcTable();
+            return true;
+        }
+        else if(premierLeagueStats.getIsResourceAvailable()){
+            table = premierLeagueStats.getTable();
+            return true;
+        }
+        else if(espnStats.getIsResourceAvailable()){
+            table = espnStats.getTable();
+            return true;
+        }
+        else{
             return false;
         }
-        return true;
     }
+    @Scheduled(cron="0 0/30 * * * ?")
+    private void refreshTable(){
+        bbCstats.getBBCdata();
+        espnStats.getData();
+        premierLeagueStats.getData();
+    }
+
     public HashMap<Integer, TableEntry> getTable(){
         return table;
     }
+
+    public HashMap<String,Boolean> areResourcesAvailable(){
+        HashMap<String,Boolean> resources = new HashMap<String, Boolean>();
+        resources.put("BBC",bbCstats.isResourceAvailable());
+        resources.put("ESPN",espnStats.isResourceAvailable());
+        resources.put("PremierLeague.com",premierLeagueStats.isResourceAvailable());
+        return resources;
+    }
+
+
 }

@@ -16,12 +16,13 @@ public class EspnStats {
 
     private HashMap<Integer, TableEntry> table = new HashMap<Integer, TableEntry>();
     private final String urlOfTable ="http://www.espnfc.com/barclays-premier-league/23/table";
+    private boolean isResourceAvailable;
 
     public EspnStats(){
-        getData();
+        isResourceAvailable();
     }
 
-    private boolean getData(){
+    public boolean getData(){
         try {
             Document doc = Jsoup.connect(urlOfTable).get();
             Elements teamNames = doc.getElementsByAttributeValue("class", "team").not("th");
@@ -41,5 +42,14 @@ public class EspnStats {
 
     public HashMap<Integer, TableEntry> getTable(){
         return table;
+    }
+
+    public boolean isResourceAvailable(){
+        isResourceAvailable = getData();
+        return isResourceAvailable;
+    }
+
+    public boolean getIsResourceAvailable(){
+        return isResourceAvailable;
     }
 }

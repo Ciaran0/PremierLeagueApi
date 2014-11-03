@@ -5,6 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -15,9 +16,10 @@ public class BBCstats {
 
     private HashMap<Integer, TableEntry> bbcTable = new HashMap<Integer, TableEntry>();
     private final String urlOfTable = "http://www.bbc.com/sport/football/tables";
+    private boolean isResourceAvailable;
 
     public BBCstats(){
-        getBBCdata();
+        isResourceAvailable();
     }
 
     public boolean getBBCdata() {
@@ -40,5 +42,14 @@ public class BBCstats {
     }
     public HashMap<Integer, TableEntry> getBbcTable(){
         return bbcTable;
+    }
+
+    public boolean isResourceAvailable(){
+        isResourceAvailable = getBBCdata();
+        return isResourceAvailable;
+    }
+
+    public boolean getIsResourceAvailable(){
+        return isResourceAvailable;
     }
 }
