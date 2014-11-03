@@ -14,5 +14,7 @@
     </bean>
 
     <bean id="bbcStats" class="com.springapp.mvc.services.BBCstats" />
+    <bean id="premierLeagueStats" class="com.springapp.mvc.services.PremierLeagueTable" />
+    <bean id="espnStats" class="com.springapp.mvc.services.EspnStats" />
 
 </beans>

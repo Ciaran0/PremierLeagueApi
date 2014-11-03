@@ -9,12 +9,16 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * Created by ciaran on 02/11/14.
+ * Stats taken from BBC.com
  */
 public class BBCstats {
 
     private HashMap<Integer, TableEntry> bbcTable = new HashMap<Integer, TableEntry>();
     private final String urlOfTable = "http://www.bbc.com/sport/football/tables";
+
+    public BBCstats(){
+        getBBCdata();
+    }
 
     public boolean getBBCdata() {
         try {
