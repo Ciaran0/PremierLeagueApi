@@ -12,12 +12,11 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration("file:src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml")
+@ContextConfiguration(locations = "classpath:mvc-dispatcher-servlet.xml")
 public class AppTests {
     private MockMvc mockMvc;
 
@@ -32,8 +31,8 @@ public class AppTests {
 
     @Test
     public void simple() throws Exception {
-        mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("hello"));
+        mockMvc.perform(get("/api/premierLeagueTable"))
+                .andExpect(status().isOk());
+
     }
 }
