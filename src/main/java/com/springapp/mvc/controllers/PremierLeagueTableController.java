@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 
 @Controller
-@RequestMapping("/api/premierLeagueTable")
+@RequestMapping("/api/v1/getPremierLeagueTable")
 public class PremierLeagueTableController {
     @Autowired
     private PremierLeagueTable premierLeagueTable;

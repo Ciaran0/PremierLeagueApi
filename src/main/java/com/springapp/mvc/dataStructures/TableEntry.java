@@ -1,8 +1,5 @@
 package com.springapp.mvc.dataStructures;
 
-/**
- * Created by ciaran on 02/11/14.
- */
 public class TableEntry {
     private String teamname;
     private int points;
