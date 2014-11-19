@@ -31,7 +31,7 @@ public class AppTests {
 
     @Test
     public void simple() throws Exception {
-        mockMvc.perform(get("/api/premierLeagueTable"))
+        mockMvc.perform(get("/api/v1/getPremierLeagueTable"))
                 .andExpect(status().isOk());
 
     }
