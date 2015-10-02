@@ -84,9 +84,10 @@
     $(document).ready(function(){
         $.getJSON( "/api/v1/getPremierLeagueTable", function( data ) {
             //var items = [];
-            $.each( data, function( key, val ) {
+            $.each( data.table, function( key, val ) {
+                key++;
                 if(key == 1){
-                    $('#premierLeagueTable tbody').append( "<tr class='active' id='" + key + "'><td>" + key + "</td><td>"+val.teamname+"</td><td>"+val.points+"</td></tr>" );
+                    $('#premierLeagueTable tbody').append( "<tr class='success' id='" + key + "'><td>" + key + "</td><td>"+val.teamname+"</td><td>"+val.points+"</td></tr>" );
                 }
                 else if (key >17){
                     $('#premierLeagueTable tbody').append( "<tr class='danger' id='" + key + "'><td>" + key + "</td><td>"+val.teamname+"</td><td>"+val.points+"</td></tr>" );

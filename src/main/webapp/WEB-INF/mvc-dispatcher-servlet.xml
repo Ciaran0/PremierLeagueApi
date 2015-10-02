@@ -20,7 +20,6 @@
 
     <bean id="bbcStats" class="com.springapp.mvc.services.BBCstats" />
     <bean id="premierLeagueStats" class="com.springapp.mvc.services.PremierLeagueStats" />
-    <bean id="espnStats" class="com.springapp.mvc.services.EspnStats" />
-    <bean id="premierLeagueTable"  class="com.springapp.mvc.services.PremierLeagueTable" />
+    <bean id="premierLeagueTable"  class="com.springapp.mvc.services.PremierLeagueTableGenerator" />
 
 </beans>
