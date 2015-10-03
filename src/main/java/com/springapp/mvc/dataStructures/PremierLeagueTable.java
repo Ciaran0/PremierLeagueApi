@@ -1,49 +1,42 @@
 package com.springapp.mvc.dataStructures;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.Date;
 
+@Getter
 public class PremierLeagueTable {
-    private ArrayList<TableEntry> premierLeagueTable;
+    private ArrayList<TableEntry> tablelistings;
     private Location source;
-    private Date dateGenerated;
+    private long generatedDate;
     private String error = null;
 
     public PremierLeagueTable(Location source){
-        premierLeagueTable = new ArrayList<TableEntry>();
+        tablelistings = new ArrayList<TableEntry>();
         this.source = source;
-        this.dateGenerated = new Date();
+        this.generatedDate = new Date().getTime();
     }
 
     public void addTableEntry(TableEntry tableEntry){
-        premierLeagueTable.add(tableEntry);
+        tablelistings.add(tableEntry);
     }
 
     public void clearTable(){
-        premierLeagueTable.clear();
+        tablelistings.clear();
     }
 
     public int size(){
-        return premierLeagueTable.size();
+        return tablelistings.size();
     }
 
     public void setError(String error){
         this.error= error;
     }
 
-    public String getError(){
-        return error;
+    @Override
+    public boolean equals(Object object){
+        return true;
     }
 
-    public String getLocation(){
-        return source.name();
-    }
-
-    public Date getDateGenerated(){
-        return dateGenerated;
-    }
-
-    public ArrayList<TableEntry> getTable(){
-        return premierLeagueTable;
-    }
 }

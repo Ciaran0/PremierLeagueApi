@@ -1,6 +1,11 @@
 package com.springapp.mvc.dataStructures;
 
-public class TableEntry {
+import lombok.Getter;
+
+import java.io.Serializable;
+
+@Getter
+public class TableEntry implements Serializable {
     private String teamname;
     private int position,played,points;
 
@@ -10,18 +15,10 @@ public class TableEntry {
         this.points = points;
         this.played = played;
     }
-    public String getTeamname(){
-        return teamname;
-    }
-    public int getPlayed(){
-        return played;
-    }
-    public int getPoints(){
-        return points;
-    }
-    public int getPosition(){
-        return position;
-    }
 
+    @Override
+    public String toString(){
+        return "{position: "+position+", teamname: "+teamname+", points: "+points+", played: "+played+"}";
+    }
 
 }

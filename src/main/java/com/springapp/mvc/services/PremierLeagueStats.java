@@ -3,28 +3,31 @@ package com.springapp.mvc.services;
 import com.springapp.mvc.dataStructures.Location;
 import com.springapp.mvc.dataStructures.PremierLeagueTable;
 import com.springapp.mvc.dataStructures.TableEntry;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Stats taken from PremierLeague.com
  */
+@Slf4j
 public class PremierLeagueStats {
+    @Getter
     private PremierLeagueTable premierLeagueTable = new PremierLeagueTable(Location.PremierLeague);
-    private final String urlOfTable = "http://www.premierleague.com/en-gb/matchday/league-table.html";
+    @Getter
     private boolean isResourceAvailable;
 
     public PremierLeagueStats(){
-        isResourceAvailable();
+        checkResourseAvailability();
     }
 
     public boolean getData() {
+        final String urlOfTable = "http://www.premierleague.com/en-gb/matchday/league-table.html";
         try {
             Document doc = Jsoup.connect(urlOfTable).get();
             Elements teamNames = doc.getElementsByAttributeValue("template", ".leagueTable-Club");
@@ -39,19 +42,14 @@ public class PremierLeagueStats {
                 count++;
             }
         } catch (IOException e) {
+            log.error("Error getting premier league table from premierleague.com");
+            log.error(e.getMessage());
             return false;
         }
         return true;
     }
-    public PremierLeagueTable getTable(){
-        return premierLeagueTable;
-    }
-    public boolean isResourceAvailable(){
+    public boolean checkResourseAvailability(){
         isResourceAvailable = getData();
-        return isResourceAvailable;
-    }
-
-    public boolean getIsResourceAvailable(){
         return isResourceAvailable;
     }
 }

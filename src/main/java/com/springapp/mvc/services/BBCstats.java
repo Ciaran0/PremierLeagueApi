@@ -1,6 +1,8 @@
 package com.springapp.mvc.services;
 
 import com.springapp.mvc.dataStructures.*;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,17 +13,20 @@ import java.io.IOException;
 /**
  * Stats taken from BBC.com
  */
+@Slf4j
 public class BBCstats {
 
+    @Getter
     private PremierLeagueTable premierLeagueTable = new PremierLeagueTable(Location.BBC) ;
-    private final String urlOfTable = "http://www.bbc.com/sport/football/tables";
+    @Getter
     private boolean isResourceAvailable;
 
     public BBCstats(){
-        isResourceAvailable();
+        checkResourseAvailability();
     }
 
     public boolean getBBCdata() {
+        final String urlOfTable = "http://www.bbc.com/sport/football/tables";
         try {
             premierLeagueTable.clearTable();
             Document doc = Jsoup.connect(urlOfTable).get();
@@ -38,20 +43,17 @@ public class BBCstats {
                 count++;
             }
         } catch (IOException e) {
+            log.error("Error getting BBC premierleague table");
+            log.error(e.getMessage());
             return false;
         }
         return true;
     }
-    public PremierLeagueTable getBbcTable(){
-        return premierLeagueTable;
-    }
 
-    public boolean isResourceAvailable(){
+    public boolean checkResourseAvailability(){
         isResourceAvailable = getBBCdata();
         return isResourceAvailable;
     }
 
-    public boolean getIsResourceAvailable(){
-        return isResourceAvailable;
-    }
+
 }

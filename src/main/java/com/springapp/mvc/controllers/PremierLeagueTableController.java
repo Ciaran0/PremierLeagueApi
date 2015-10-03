@@ -20,7 +20,7 @@ public class PremierLeagueTableController {
 	public @ResponseBody
     PremierLeagueTable premierLeagueTable() {
 		if(!premierLeagueTableGenerator.generateTable()){
-            premierLeagueTableGenerator.getTable().setError("Error: No data available");
+            premierLeagueTableGenerator.getTable().setError("No data available");
         }
         return premierLeagueTableGenerator.getTable();
 	}
