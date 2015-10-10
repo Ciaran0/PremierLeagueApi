@@ -12,7 +12,6 @@ import org.springframework.data.cassandra.core.CassandraTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.annotation.PostConstruct;
-
 import java.util.HashMap;
 
 @Slf4j
@@ -36,10 +35,12 @@ public class PremierLeagueTableGenerator {
 
         if(bbCstats.isResourceAvailable()){
             table = bbCstats.getPremierLeagueTable();
+            table.setGeneratedDate();
             return true;
         }
         else if(premierLeagueStats.isResourceAvailable()){
             table = premierLeagueStats.getPremierLeagueTable();
+            table.setGeneratedDate();
             return true;
         }
         else{
@@ -48,7 +49,7 @@ public class PremierLeagueTableGenerator {
     }
 
     @Scheduled(cron="0 0/30 * * * ?")
-    private void refreshTableAndSave(){
+    private void refreshTable(){
         bbCstats.getBBCdata();
         premierLeagueStats.getData();
     }

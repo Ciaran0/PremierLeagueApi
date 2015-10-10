@@ -33,11 +33,24 @@ public class PremierLeagueStats {
             Elements teamNames = doc.getElementsByAttributeValue("template", ".leagueTable-Club");
             Elements points = doc.getElementsByAttributeValue("template", ".leagueTable-Pts");
             Elements played = doc.getElementsByAttributeValue("template", ".leagueTable-P");
+            Elements won = doc.getElementsByAttributeValue("template",".leagueTable-W");
+            Elements drawn = doc.getElementsByAttributeValue("template",".leagueTable-D");
+            Elements lost = doc.getElementsByAttributeValue("template",".leagueTable-L");
+            Elements goalsFor = doc.getElementsByAttributeValue("template",".leagueTable-GF");
+            Elements goalsAgainst = doc.getElementsByAttributeValue("template",".leagueTable-GA");
+            Elements goalsDifference = doc.getElementsByAttributeValue("template",".leagueTable-GD");
+
             int count =0;
             for (Element name : teamNames ){
                 int numPoints = Integer.parseInt(points.get(count).text());
                 int numplayed = Integer.parseInt(played.get(count).text());
-                TableEntry tableEntry = new TableEntry(count+1,name.text(),numplayed,numPoints);
+                int numWon = Integer.parseInt(won.get(count).text());
+                int numDrawn = Integer.parseInt(drawn.get(count).text());
+                int numLost = Integer.parseInt(lost.get(count).text());
+                int numGoalsAgainst = Integer.parseInt(goalsAgainst.get(count).text());
+                int numGoalsFor = Integer.parseInt(goalsFor.get(count).text());
+                int numGoalDifference = Integer.parseInt(goalsDifference.get(count).text());
+                TableEntry tableEntry = new TableEntry(name.text(),count+1,numplayed,numPoints,numWon,numDrawn,numLost,numGoalsAgainst,numGoalsFor,numGoalDifference);
                 premierLeagueTable.addTableEntry(tableEntry);
                 count++;
             }

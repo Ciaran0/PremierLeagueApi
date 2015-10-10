@@ -1,6 +1,7 @@
 package com.springapp.mvc.dataStructures;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,12 +11,12 @@ public class PremierLeagueTable {
     private ArrayList<TableEntry> tablelistings;
     private Location source;
     private long generatedDate;
+    @Setter
     private String error = null;
 
     public PremierLeagueTable(Location source){
         tablelistings = new ArrayList<TableEntry>();
         this.source = source;
-        this.generatedDate = new Date().getTime();
     }
 
     public void addTableEntry(TableEntry tableEntry){
@@ -30,13 +31,8 @@ public class PremierLeagueTable {
         return tablelistings.size();
     }
 
-    public void setError(String error){
-        this.error= error;
-    }
-
-    @Override
-    public boolean equals(Object object){
-        return true;
+    public void setGeneratedDate(){
+        this.generatedDate = new Date().getTime();
     }
 
 }
