@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/api/v1/getPremierLeagueTable")
+@RequestMapping("/api/v1/PremierLeagueTable")
 public class PremierLeagueTableController {
     @Autowired
     private PremierLeagueTableGenerator premierLeagueTableGenerator;

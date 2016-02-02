@@ -82,7 +82,7 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script>
     $(document).ready(function(){
-        $.getJSON( "/api/v1/getPremierLeagueTable", function( data ) {
+        $.getJSON( "/api/v1/PremierLeagueTable", function( data ) {
             //var items = [];
             $.each( data.tablelistings, function( key, val ) {
                 key++;
