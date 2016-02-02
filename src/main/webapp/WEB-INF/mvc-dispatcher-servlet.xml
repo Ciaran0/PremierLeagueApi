@@ -3,16 +3,13 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:task="http://www.springframework.org/schema/task"
-       xmlns:cassandra="http://www.springframework.org/schema/data/cassandra"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd http://www.springframework.org/schema/data/cassandra http://www.springframework.org/schema/data/cassandra/spring-cassandra.xsd">
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
-    <context:property-placeholder location="classpath:${spring.profiles.active}.properties" />
     <context:component-scan base-package="com.springapp.mvc"/>
-
     <mvc:annotation-driven />
     <task:annotation-driven />
     <mvc:resources mapping="/resources/**" location="/resources/" />
@@ -23,13 +20,8 @@
 
     <bean id="bbcStats" class="com.springapp.mvc.services.BBCstats" />
     <bean id="premierLeagueStats" class="com.springapp.mvc.services.PremierLeagueStats" />
-    <bean id="premierLeagueTable"  class="com.springapp.mvc.services.PremierLeagueTableGenerator" />
-
-    <cassandra:cluster contact-points="${cassandra.contactpoints}"
-                       port="${cassandra.port}" />
-    <cassandra:session keyspace-name="${cassandra.keyspace}" />
-    <cassandra:mapping />
-    <cassandra:converter />
-    <cassandra:template id="cassandraTemplate" />
-
+    <bean id="espnStats" class="com.springapp.mvc.services.EspnStats" />
+    <bean id="premierLeagueTable"  class="com.springapp.mvc.services.PremierLeagueTable" />
+	<bean id="topScorer" class="com.springapp.mvc.services.TopScorer"/>
+	<bean id="topScoreTable" class="com.springapp.mvc.services.TopScorerTable"/>
 </beans>

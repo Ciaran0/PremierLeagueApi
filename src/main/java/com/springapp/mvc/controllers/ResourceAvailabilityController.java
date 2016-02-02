@@ -1,6 +1,6 @@
 package com.springapp.mvc.controllers;
 
-import com.springapp.mvc.services.PremierLeagueTableGenerator;
+import com.springapp.mvc.services.PremierLeagueTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +13,7 @@ import java.util.HashMap;
 @RequestMapping("/api/resourceAvailability")
 public class ResourceAvailabilityController {
     @Autowired
-    private PremierLeagueTableGenerator premierLeagueTable;
+    private PremierLeagueTable premierLeagueTable;
 
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody

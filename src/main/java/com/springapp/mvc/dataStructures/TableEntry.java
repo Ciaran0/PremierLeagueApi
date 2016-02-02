@@ -1,15 +1,18 @@
 package com.springapp.mvc.dataStructures;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
-
-import java.io.Serializable;
-
-@Getter
-@AllArgsConstructor
-@ToString
-public class TableEntry implements Serializable {
+public class TableEntry {
     private String teamname;
-    private int position,played,won,drawn,lost,goalsFor,goalsAgainst,goalDifference,points;
+    private int points;
+
+    public TableEntry(String teamname, int points){
+        this.teamname =  teamname;
+        this.points = points;
+    }
+    public String getTeamname(){
+        return teamname;
+    }
+    public int getPoints(){
+        return points;
+    }
+
 }

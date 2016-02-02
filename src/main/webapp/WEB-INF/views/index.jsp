@@ -75,6 +75,16 @@
         </div>
         <div class="col-md-2"></div>
     </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <table id="scorerTable" class="table table-striped table-hover">
+                <th>Position</th> <th>Player</th> <th>Team</th> <th>Goals</th>
+            </table>
+            <p><small>*Table updates every 30mins</small></p>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -82,18 +92,28 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script>
     $(document).ready(function(){
-        $.getJSON( "/api/v1/PremierLeagueTable", function( data ) {
+
+        $.getJSON( "/PremierLeagueAPI/api/v1/getPremierLeagueTable", function( data ) {
             //var items = [];
-            $.each( data.tablelistings, function( key, val ) {
-                key++;
+            $.each( data, function( key, val ) {
                 if(key == 1){
-                    $('#premierLeagueTable tbody').append( "<tr class='success' id='" + key + "'><td>" + key + "</td><td>"+val.teamname+"</td><td>"+val.points+"</td></tr>" );
+                    $('#premierLeagueTable tbody').append( "<tr class='active' id='" + key + "'><td>" + key + "</td><td>"+val.teamname+"</td><td>"+val.points+"</td></tr>" );
                 }
                 else if (key >17){
                     $('#premierLeagueTable tbody').append( "<tr class='danger' id='" + key + "'><td>" + key + "</td><td>"+val.teamname+"</td><td>"+val.points+"</td></tr>" );
                 } else
                 {
                     $('#premierLeagueTable tbody').append( "<tr id='" + key + "'><td>" + key + "</td><td>"+val.teamname+"</td><td>"+val.points+"</td></tr>" );
+                }
+            });
+        });
+        
+        $.getJSON( "/PremierLeagueAPI/api/v1/topscorer", function( data ) {
+            //var items = [];
+            $.each( data, function( key, val ) {
+                if(key != 1){
+                	key = key -1;
+                    $('#scorerTable tbody').append( "<tr class='active' id='" + key + "'><td>" + key + "</td><td>"+val.playerName+"</td><td>"+val.teamname+"</td><td>"+val.goals+"</td></tr>" );
                 }
             });
         });
